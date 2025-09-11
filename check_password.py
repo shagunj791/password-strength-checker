@@ -1,4 +1,3 @@
-
 import re
 
 def strength_check(password):
@@ -31,9 +30,3 @@ def strength_check(password):
 pwd= input("Enter the password:")
 check=strength_check(pwd)
 print(check)
-
-
-    
-        
-    
-        
