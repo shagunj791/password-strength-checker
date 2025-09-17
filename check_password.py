@@ -80,29 +80,26 @@ def check_password_strength(password):
     }
 
 def cli():
-    parser = argparse.ArgumentParser(description='Password strength checker')
-    parser.add_argument('password', nargs='?', help='Password to evaluate (or omit to prompt)')
-    parser.add_argument('--quiet', action='store_true', help='Only print label')
-    args = parser.parse_args()
+    # Ask the user for a password
+    pwd = input("Enter password: ")
 
-    if args.password:
-        pwd = args.password
-    else:
-        try:
-            pwd = input('Enter password: ')
-        except (KeyboardInterrupt, EOFError):
-            sys.exit(0)
+    # Ask if the user wants quiet mode
+    quiet = input("Quiet mode? (y/n): ").strip().lower() == 'y'
 
+    # Run the strength check
     res = check_password_strength(pwd)
-    if args.quiet:
-        print(res['label'])
-        return
 
-    print(f'Password length: {len(pwd)} — {res["label"]}')
-    print(f'Entropy: {res["entropy"]:.1f} bits')
-    print('Suggestions:')
-    for s in res['suggestions']:
-        print(' -', s)
+    # Show results
+    if quiet:
+        print(res['label'])
+    else:
+        print(f'Password length: {len(pwd)} — {res["label"]}')
+        print(f'Entropy: {res["entropy"]:.1f} bits')
+        print("Suggestions:")
+        for s in res['suggestions']:
+            print(" -", s)
+
+
 
 if __name__ == '__main__':
     cli()
