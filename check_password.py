@@ -8,8 +8,6 @@ Password strength checker
 
 import re
 import math
-import argparse
-import sys
 
 def charset_size(password):
     has_lower = bool(re.search(r'[a-z]', password))
